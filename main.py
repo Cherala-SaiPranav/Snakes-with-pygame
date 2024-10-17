@@ -186,7 +186,7 @@ def game_loop():
         clock.tick(fps)
                 
     pygame.quit()
-    sys.quit()
+    sys.exit()
 
 # Start game
 welcome()
