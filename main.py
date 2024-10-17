@@ -70,11 +70,29 @@ def welcome():
         pygame.display.update()
         clock.tick(60)
 
+# Pause Game Function
+def pause_game():
+    paused = True
+    while paused:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:  # Press 'P' to resume
+                    paused = False
+
+        gameWindow.fill(grey)
+        display_text("Game Paused. Press 'ESC' to Resume.", red, 100, 200)
+        pygame.display.update()
+        clock.tick(60)
+
 # Game Loop
 def game_loop():
     # Game Variables
     exit_game = False
     game_over = False
+    is_paused = False
     fps = 60
     snake_x = 100
     snake_y = 100
@@ -122,6 +140,8 @@ def game_loop():
                 if event.type == pygame.QUIT:
                     exit_game = True
                 if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:  # Press 'P' to pause
+                        pause_game()
                     if event.key == pygame.K_RIGHT:
                         snakeVelocity_x = velocity
                         snakeVelocity_y = 0
